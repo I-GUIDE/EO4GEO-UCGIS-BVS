@@ -1,0 +1,1 @@
+declare module '@eo4geo/find-in-bok-dataviz';

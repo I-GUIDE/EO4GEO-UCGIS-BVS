@@ -1,1 +1,104 @@
-<p>bok works!</p>
+<mat-toolbar class="mat-primary">
+    <!--   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button> -->
+    <span>Body of Knowledge Visualizer and Search</span>
+    <span class="example-spacer"></span>
+    <!--   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button> -->
+</mat-toolbar>
+<br>
+<section class="section">
+
+    <!--   
+  <mat-grid-list cols="5" rowHeight="3:1">
+    <mat-grid-tile> <mat-checkbox color="primary" class="margin">Code</mat-checkbox></mat-grid-tile>
+    <mat-grid-tile> <mat-checkbox color="primary" class="margin">Name</mat-checkbox></mat-grid-tile>
+    <mat-grid-tile> <mat-checkbox color="primary" class="margin">Description</mat-checkbox></mat-grid-tile>
+    <mat-grid-tile> <mat-checkbox color="primary" class="margin">Skills / Learning
+        outcomes</mat-checkbox></mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="form-field">
+        <mat-label>Term searched</mat-label>
+        <input matInput type="text" [(ngModel)]="termSearched">
+        <button *ngIf="termSearched" matSuffix mat-icon-button aria-label="Clear" (click)="termSearched=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list> -->
+
+    <mat-card-title class="margin">Check the attributes to match with term searched: </mat-card-title>
+    <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchCode">Code</mat-checkbox>
+    <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchName">Name</mat-checkbox>
+    <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchDes">Description</mat-checkbox>
+    <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSkills">Skills / Learning outcomes</mat-checkbox>
+
+    <mat-form-field class="form-field margin">
+        <mat-label>Term searched</mat-label>
+        <input matInput type="text" [(ngModel)]="searchText" (keyup)="onChangeSearchText()">
+        <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="cleanSearch()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+</section>
+<mat-grid-list cols="2" rowHeight="1:2">
+    <mat-grid-tile class="block">
+        <div id="graph"></div>
+    </mat-grid-tile>
+
+
+    <mat-grid-tile class="block section">
+        <div id="textInfo" #textInfo> Loading... </div>
+
+        <section *ngIf="resultNodes && resultNodes.length>0">
+            <mat-card-title> Results: {{resultNodes.length}} </mat-card-title>
+
+            <ul>
+                <li
+                    *ngFor="let n of resultNodes|slice:(resultsPageIndex*resultsPageSize):(resultsPageIndex*resultsPageSize+resultsPageSize); index as i">
+                    [{{n['code']}}]
+                    <span [innerHTML]="n['name'] | truncate:100:searchText"> </span>
+                    <a class="margin" href="#" (click)="browseToConcept(n['code'])">View</a>
+                    <br>
+                    <span class="small" [innerHTML]="n['description'] | truncate: 100:searchText"></span>
+
+                    <!-- <span class="small" *ngFor="let s of n['demonstrableSkills']" [innerHTML]="s | truncate: 100:searchText"></span> -->
+                </li>
+            </ul>
+
+            <mat-paginator (page)="handlePageEvent($event)" [length]="resultNodes.length" [pageSize]="resultsPageSize"
+                [pageIndex]="resultsPageIndex" [pageSizeOptions]="[5, 10, 25, 50, 100]" aria-label="Select page">
+            </mat-paginator>
+        </section>
+    </mat-grid-tile>
+
+
+
+    <!--   <mat-grid-tile *ngIf="resultNodes && resultNodes.length==0" class="block">
+    <div id="textInfo" #textInfo></div>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="resultNodes && resultNodes.length>0" class="block">
+    <section>
+      <mat-card-title class="margin"> Results: {{resultNodes.length}} </mat-card-title>
+
+      <ul>
+        <li
+          *ngFor="let n of resultNodes|slice:(resultsPageIndex*resultsPageSize):(resultsPageIndex*resultsPageSize+resultsPageSize); index as i">
+           [{{n['code']}}] {{n['name']}}
+        </li>
+      </ul>
+
+      <mat-paginator (page)="handlePageEvent($event)" [length]="resultNodes.length" [pageSize]="resultsPageSize"
+        [pageIndex]="resultsPageIndex" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+      </mat-paginator>
+    </section>
+  </mat-grid-tile> -->
+
+
+</mat-grid-list>

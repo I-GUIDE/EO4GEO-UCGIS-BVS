@@ -20,8 +20,8 @@ import { BokComponent } from './bok/bok.component';
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: ':conceptId', component: AppComponent },
-      { path: '', component: AppComponent },
+      { path: ':conceptId', component: BokComponent },
+      { path: '', component: BokComponent },
     ]),
     BrowserAnimationsModule,
     FormsModule,

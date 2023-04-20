@@ -17,3 +17,9 @@ mat-paginator {
 .small {
     font-size: small;
 }
+
+.link {
+    color: #007bff;
+    font-weight: 400; 
+    cursor: pointer;
+}

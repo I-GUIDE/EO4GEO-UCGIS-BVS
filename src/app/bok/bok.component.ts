@@ -20,24 +20,22 @@ export class BokComponent implements AfterViewInit {
   resultsPageIndex = 0;
   resultsPageSize = 10;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
-  ngAfterViewInit(): void {
-    bok.visualizeBOKData('https://ucgis-bok-default-rtdb.firebaseio.com/')
+  async ngAfterViewInit(): Promise<void> {
+
+    const result = await bok.visualizeBOKData('https://ucgis-bok-default-rtdb.firebaseio.com/');
     // bok.visualizeBOKData('https://ucgis-bok-backup-default-rtdb.firebaseio.com/')
     //  bok.visualizeBOKData('https://ucgis-bok-backup-default-rtdb.firebaseio.com/', '#graph', '#textInfo')
     // bok.visualizeBOKData('#graph', 'https://ucgis-bok-default-rtdb.firebaseio.com/', '#textInfo')
-  
 
-    // Wait until BoK is loaded
-    setTimeout(() => {
-      let id = this.route.snapshot.paramMap.get('conceptId');
-      console.log("ID: ", id);
+    console.log(result);
 
-      if (id != null) {
-        bok.browseToConcept(id);
-      }
-    }, 1000);
+    let id = this.route.snapshot.paramMap.get('conceptId');
+    console.log("ID: ", id);
+    if (id != null) {
+      bok.browseToConcept(id);
+    }
 
   }
 
@@ -52,7 +50,7 @@ export class BokComponent implements AfterViewInit {
 
     this.resultNodes = bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchDes, this.isSearchSkills);
 
-    console.log(this.resultNodes);
+    // console.log(this.resultNodes);
   }
 
   handlePageEvent(e: PageEvent) {

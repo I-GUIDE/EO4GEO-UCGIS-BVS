@@ -23,3 +23,14 @@ mat-paginator {
     font-weight: 400; 
     cursor: pointer;
 }
+
+.mat-grid-tile {
+    overflow: auto !important;
+    padding-top: calc((75vh - 0.5px) * 1 + 0px) !important;
+}
+
+.example-viewport {
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+}

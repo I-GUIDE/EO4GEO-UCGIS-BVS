@@ -51,43 +51,42 @@
   </mat-form-field>
 
 </section>
-<mat-grid-list cols="2" rowHeight="1:2">
-  <mat-grid-tile class="block">
-    <div id="graph"></div>
-  </mat-grid-tile>
+<section style="height: 75vh;">
+  <mat-grid-list cols="2"> <!--  rowHeight="fit" -->
+    <mat-grid-tile class="block">
+      <div id="graph"></div>
+    </mat-grid-tile>
 
+    <mat-grid-tile class="block section">
+      <cdk-virtual-scroll-viewport scrollWindow itemSize="70">
+        <!--  class="example-viewport"   TODO: SCROLLING BAR does not appear -->
+        <div id="textInfo" #textInfo> Loading... </div>
+        <section *ngIf="resultNodes && resultNodes.length>0">
+          <mat-card-title> Results: {{resultNodes.length}} </mat-card-title>
+          <ul>
+            <li
+              *ngFor="let n of resultNodes|slice:(resultsPageIndex*resultsPageSize):(resultsPageIndex*resultsPageSize+resultsPageSize); index as i">
+              [<span *ngIf="isSearchCode" [innerHTML]="n['code']| truncate:100:searchText"> </span> <span
+                *ngIf="!isSearchCode" [innerHTML]="n['code']"> </span>]
+              <span *ngIf="isSearchName" [innerHTML]="n['name'] | truncate:100:searchText"> </span> <span
+                *ngIf="!isSearchName" [innerHTML]="n['name']"> </span>
+              <a class="margin link" (click)="browseToConcept(n['code'])">View</a>
+              <br>
+              <span *ngIf="isSearchDes" class="small" [innerHTML]="n['description'] | truncate: 100:searchText"></span>
+              <span *ngIf="!isSearchDes" class="small" [innerHTML]="n['description'] | truncate: 100:searchText"></span>
 
-  <mat-grid-tile class="block section">
-    <div id="textInfo" #textInfo> Loading... </div>
+              <!-- <span class="small" *ngFor="let s of n['demonstrableSkills']" [innerHTML]="s | truncate: 100:searchText"></span> -->
+            </li>
+          </ul>
 
-    <section *ngIf="resultNodes && resultNodes.length>0">
-      <mat-card-title> Results: {{resultNodes.length}} </mat-card-title>
+          <mat-paginator (page)="handlePageEvent($event)" [length]="resultNodes.length" [pageSize]="resultsPageSize"
+            [pageIndex]="resultsPageIndex" [pageSizeOptions]="[5, 10, 25, 50, 100]" aria-label="Select page">
+          </mat-paginator>
+        </section>
+      </cdk-virtual-scroll-viewport>
+    </mat-grid-tile>
 
-      <ul>
-        <li
-          *ngFor="let n of resultNodes|slice:(resultsPageIndex*resultsPageSize):(resultsPageIndex*resultsPageSize+resultsPageSize); index as i">
-          [<span *ngIf="isSearchCode" [innerHTML]="n['code']| truncate:100:searchText"> </span> <span
-            *ngIf="!isSearchCode" [innerHTML]="n['code']"> </span>]
-          <span *ngIf="isSearchName" [innerHTML]="n['name'] | truncate:100:searchText"> </span> <span
-            *ngIf="!isSearchName" [innerHTML]="n['name']"> </span>
-          <a class="margin link" (click)="browseToConcept(n['code'])">View</a>
-          <br>
-          <span *ngIf="isSearchDes" class="small" [innerHTML]="n['description'] | truncate: 100:searchText"></span>
-          <span *ngIf="!isSearchDes" class="small" [innerHTML]="n['description'] | truncate: 100:searchText"></span>
-
-          <!-- <span class="small" *ngFor="let s of n['demonstrableSkills']" [innerHTML]="s | truncate: 100:searchText"></span> -->
-        </li>
-      </ul>
-
-      <mat-paginator (page)="handlePageEvent($event)" [length]="resultNodes.length" [pageSize]="resultsPageSize"
-        [pageIndex]="resultsPageIndex" [pageSizeOptions]="[5, 10, 25, 50, 100]" aria-label="Select page">
-      </mat-paginator>
-    </section>
-  </mat-grid-tile>
-
-
-
-  <!--   <mat-grid-tile *ngIf="resultNodes && resultNodes.length==0" class="block">
+    <!--   <mat-grid-tile *ngIf="resultNodes && resultNodes.length==0" class="block">
     <div id="textInfo" #textInfo></div>
   </mat-grid-tile>
   <mat-grid-tile *ngIf="resultNodes && resultNodes.length>0" class="block">
@@ -107,5 +106,9 @@
     </section>
   </mat-grid-tile> -->
 
-
-</mat-grid-list>
+  </mat-grid-list>
+</section>
+<mat-toolbar class="mat-primary">
+  <span>Body of Knowledge Visualizer and Search</span>
+  <span class="example-spacer"></span>
+</mat-toolbar>

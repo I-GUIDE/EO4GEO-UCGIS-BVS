@@ -24,18 +24,13 @@ export class BokComponent implements AfterViewInit {
 
   async ngAfterViewInit(): Promise<void> {
 
-    const result = await bok.visualizeBOKData('https://ucgis-bok-default-rtdb.firebaseio.com/');
+    const result = await bok.visualizeBOKData('https://ucgis-bok-default-rtdb.firebaseio.com/', 'current');
     // bok.visualizeBOKData('https://ucgis-bok-backup-default-rtdb.firebaseio.com/')
     //  bok.visualizeBOKData('https://ucgis-bok-backup-default-rtdb.firebaseio.com/', '#graph', '#textInfo')
     // bok.visualizeBOKData('#graph', 'https://ucgis-bok-default-rtdb.firebaseio.com/', '#textInfo')
 
-    console.log(result);
-
     let id = this.route.snapshot.paramMap.get('conceptId');
-    console.log("ID: ", id);
-    if (id != null) {
-      bok.browseToConcept(id);
-    }
+    bok.browseToConcept(id);
 
   }
 

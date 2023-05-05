@@ -10,6 +10,8 @@ import { TruncatePipe } from './truncate.pipe';
 import { RouterModule } from '@angular/router';
 import { BokComponent } from './bok/bok.component';
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { BokComponent } from './bok/bok.component';
     ]),
     BrowserAnimationsModule,
     FormsModule,
-    MaterialAllModule
+    MaterialAllModule,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

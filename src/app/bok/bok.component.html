@@ -51,7 +51,7 @@
   </mat-form-field>
 
 </section>
-<section style="height: 75vh;">
+<section style="height: 75vh; padding: 10px;">
   <mat-grid-list cols="2"> <!--  rowHeight="fit" -->
     <mat-grid-tile class="block">
       <div id="graph"></div>
@@ -60,8 +60,14 @@
     <mat-grid-tile class="block section">
       <cdk-virtual-scroll-viewport scrollWindow itemSize="70">
         <!--  class="example-viewport"   TODO: SCROLLING BAR does not appear -->
+        <span *ngIf="resultNodes.length>0 && isConceptInfo" class="small"> <a (click)="cleanConceptInfo()"
+            style="color: #007bff; font-weight: 400; cursor: pointer;"> <i class="material-icons">arrow_back</i> Go back
+            to search results </a>
+          <br>
+          <br>
+        </span>
         <div id="textInfo" #textInfo> Loading... </div>
-        <section *ngIf="resultNodes && resultNodes.length>0">
+        <section *ngIf="resultNodes && resultNodes.length>0 && !isConceptInfo">
           <mat-card-title> Results: {{resultNodes.length}} </mat-card-title>
           <ul>
             <li

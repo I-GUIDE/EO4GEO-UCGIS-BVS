@@ -12,4 +12,9 @@ body {
 
 mat-grid-tile.block .mat-grid-tile-content {
     display: block !important;
+    padding: 5px;
+}
+
+i.material-icons {
+    font-size: small !important;
 }

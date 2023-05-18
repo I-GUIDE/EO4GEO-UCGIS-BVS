@@ -33,6 +33,7 @@
   </mat-grid-list> -->
 
   <mat-card-title class="margin">Check the attributes to match with term searched: </mat-card-title>
+  <br>
   <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchCode"
     (change)="onChangeSearchText()">Code</mat-checkbox>
   <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchName"
@@ -41,6 +42,8 @@
     (change)="onChangeSearchText()">Description</mat-checkbox>
   <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSkills" (change)="onChangeSearchText()">Skills /
     Learning outcomes</mat-checkbox>
+  <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSourceDocs" (change)="onChangeSearchText()">Source
+    Documents</mat-checkbox>
 
   <mat-form-field class="form-field margin">
     <mat-label>Term searched</mat-label>
@@ -51,7 +54,7 @@
   </mat-form-field>
 
 </section>
-<section style="height: 75vh; padding: 10px;">
+<section style=" padding: 10px;">
   <mat-grid-list cols="2"> <!--  rowHeight="fit" -->
     <mat-grid-tile class="block">
       <div id="graph"></div>
@@ -114,7 +117,7 @@
 
   </mat-grid-list>
 </section>
-<mat-toolbar class="mat-primary">
+<!-- <mat-toolbar class="mat-primary">
   <span>Body of Knowledge Visualizer and Search</span>
   <span class="example-spacer"></span>
-</mat-toolbar>
+</mat-toolbar> -->

@@ -17,6 +17,7 @@ export class BokComponent implements AfterViewInit {
   isSearchName = true;
   isSearchDes = false;
   isSearchSkills = false;
+  isSearchSourceDocs = false;
   resultsPageIndex = 0;
   resultsPageSize = 10;
   isConceptInfo = false;
@@ -37,7 +38,7 @@ export class BokComponent implements AfterViewInit {
 
 
   onChangeSearchText() {
-    this.resultNodes = bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchDes, this.isSearchSkills);
+    this.resultNodes = bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchDes, this.isSearchSkills, this.isSearchSourceDocs);
     this.isConceptInfo = false;
   }
 
@@ -49,7 +50,7 @@ export class BokComponent implements AfterViewInit {
   cleanSearch() {
     this.resultNodes = [];
     this.searchText = '';
-    bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchDes, this.isSearchSkills);
+    bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchDes, this.isSearchSkills, this.isSearchSourceDocs);
   }
 
   browseToConcept(node: string) {
@@ -58,7 +59,8 @@ export class BokComponent implements AfterViewInit {
   }
 
   cleanConceptInfo() {
-    bok.cleanTextInfo()
+    bok.cleanTextInfo();
+    bok.navigateToRoot();
     this.isConceptInfo = false;
   }
 

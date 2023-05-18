@@ -13,6 +13,7 @@ body {
 mat-grid-tile.block .mat-grid-tile-content {
     display: block !important;
     padding: 5px;
+    height: fit-content;
 }
 
 i.material-icons {

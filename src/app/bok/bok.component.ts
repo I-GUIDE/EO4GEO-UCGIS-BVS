@@ -21,6 +21,7 @@ export class BokComponent implements AfterViewInit {
   resultsPageIndex = 0;
   resultsPageSize = 10;
   isConceptInfo = false;
+  currentConceptCode = '';
 
   constructor(private route: ActivatedRoute) { }
 
@@ -36,10 +37,10 @@ export class BokComponent implements AfterViewInit {
 
   }
 
-
   onChangeSearchText() {
     this.resultNodes = bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchDes, this.isSearchSkills, this.isSearchSourceDocs);
     this.isConceptInfo = false;
+    this.getCurrSelCode();
   }
 
   handlePageEvent(e: PageEvent) {
@@ -60,8 +61,12 @@ export class BokComponent implements AfterViewInit {
 
   cleanConceptInfo() {
     bok.cleanTextInfo();
-    bok.navigateToRoot();
+    bok.zoomToCode(this.currentConceptCode);
     this.isConceptInfo = false;
+  }
+
+  getCurrSelCode() {
+    this.currentConceptCode = bok.getCurrSelCode();
   }
 
 }

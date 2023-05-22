@@ -61,16 +61,15 @@
     </mat-grid-tile>
 
     <mat-grid-tile class="block section">
-      <cdk-virtual-scroll-viewport scrollWindow itemSize="70">
-        <!--  class="example-viewport"   TODO: SCROLLING BAR does not appear -->
-        <span *ngIf="resultNodes.length>0 && isConceptInfo" class="small"> <a (click)="cleanConceptInfo()"
+      <cdk-virtual-scroll-viewport scrollWindow itemSize="70">   <!-- && isConceptInfo -->
+        <span *ngIf="resultNodes.length>0 && textInfo.innerHTML.length > 15" class="small"> <a (click)="cleanConceptInfo()"
             style="color: #007bff; font-weight: 400; cursor: pointer;"> <i class="material-icons">arrow_back</i> Go back
             to search results </a>
           <br>
           <br>
         </span>
         <div id="textInfo" #textInfo> Loading... </div>
-        <section *ngIf="resultNodes && resultNodes.length>0 && !isConceptInfo">
+        <section *ngIf="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15">
           <mat-card-title> Results: {{resultNodes.length}} </mat-card-title>
           <ul>
             <li

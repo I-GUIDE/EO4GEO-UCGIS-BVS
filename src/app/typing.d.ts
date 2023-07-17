@@ -1,1 +1,1 @@
-declare module '@eo4geo/find-in-bok-dataviz';
+declare module '@ucgis/find-in-bok-dataviz';

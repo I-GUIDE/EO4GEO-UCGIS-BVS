@@ -1,8 +1,8 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
-import * as bok from '@eo4geo/find-in-bok-dataviz';
-// const bok = require('@eo4geo/find-in-bok-dataviz');
+import * as bok from '@ucgis/find-in-bok-dataviz';
+import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-bok',
@@ -23,11 +23,14 @@ export class BokComponent implements AfterViewInit {
   isConceptInfo = false;
   currentConceptCode = '';
 
+  @ViewChild(MatAccordion) accordion: MatAccordion | undefined;
+
   constructor(private route: ActivatedRoute) { }
 
   async ngAfterViewInit(): Promise<void> {
 
-    const result = await bok.visualizeBOKData('https://ucgis-bok-default-rtdb.firebaseio.com/', 'current');
+    const result = await bok.visualizeBOKData('https://ucgis-bok-dev-default-rtdb.firebaseio.com/', 'current');
+   // const result = await bok.visualizeBOKData('https://ucgis-bok-default-rtdb.firebaseio.com/', 'current');
     // bok.visualizeBOKData('https://ucgis-bok-backup-default-rtdb.firebaseio.com/')
     //  bok.visualizeBOKData('https://ucgis-bok-backup-default-rtdb.firebaseio.com/', '#graph', '#textInfo')
     // bok.visualizeBOKData('#graph', 'https://ucgis-bok-default-rtdb.firebaseio.com/', '#textInfo')

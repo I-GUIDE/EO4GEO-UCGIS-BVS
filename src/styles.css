@@ -19,3 +19,12 @@ mat-grid-tile.block .mat-grid-tile-content {
 i.material-icons {
     font-size: small !important;
 }
+
+.cdk-virtual-scroll-content-wrapper {
+    position: inherit !important;
+}
+
+#textInfo p img {
+    height: auto !important;
+    max-width: 100% !important;
+}

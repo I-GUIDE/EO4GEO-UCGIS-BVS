@@ -1,38 +1,21 @@
-<mat-toolbar class="mat-primary">
-  <!--   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button> -->
-  <span>Body of Knowledge Visualizer and Search</span>
-  <span class="example-spacer"></span>
-  <!--   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button> -->
+<mat-toolbar class="white-bg">
+  <span>Body of Knowledge Visualization and Search tool</span>
+  <span class="spacer"></span>
+  <img src="assets/ucgis-logo-small-trans.png" alt="ucgis logo" class="text-right" style="height: 40px;">
 </mat-toolbar>
 <br>
 <section class="section">
 
-  <!--   
-  <mat-grid-list cols="5" rowHeight="3:1">
-    <mat-grid-tile> <mat-checkbox color="primary" class="margin">Code</mat-checkbox></mat-grid-tile>
-    <mat-grid-tile> <mat-checkbox color="primary" class="margin">Name</mat-checkbox></mat-grid-tile>
-    <mat-grid-tile> <mat-checkbox color="primary" class="margin">Description</mat-checkbox></mat-grid-tile>
-    <mat-grid-tile> <mat-checkbox color="primary" class="margin">Skills / Learning
-        outcomes</mat-checkbox></mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field class="form-field">
-        <mat-label>Term searched</mat-label>
-        <input matInput type="text" [(ngModel)]="termSearched">
-        <button *ngIf="termSearched" matSuffix mat-icon-button aria-label="Clear" (click)="termSearched=''">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
-    </mat-grid-tile>
-  </mat-grid-list> -->
+  <!--  <mat-card-title class="margin">Check the attributes to match with term searched: </mat-card-title> -->
 
-  <mat-card-title class="margin">Check the attributes to match with term searched: </mat-card-title>
+
+  <mat-form-field class="form-field margin">
+    <mat-label>Write search term</mat-label>
+    <input matInput type="text" [(ngModel)]="searchText" (keyup)="onChangeSearchText()">
+    <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="cleanSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
   <br>
   <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchCode"
     (change)="onChangeSearchText()">Code</mat-checkbox>
@@ -45,13 +28,7 @@
   <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSourceDocs" (change)="onChangeSearchText()">Source
     Documents</mat-checkbox>
 
-  <mat-form-field class="form-field margin">
-    <mat-label>Term searched</mat-label>
-    <input matInput type="text" [(ngModel)]="searchText" (keyup)="onChangeSearchText()">
-    <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="cleanSearch()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
+
 
 </section>
 <section style=" padding: 10px;">
@@ -61,14 +38,17 @@
     </mat-grid-tile>
 
     <mat-grid-tile class="block section">
-      <cdk-virtual-scroll-viewport scrollWindow itemSize="70">   <!-- && isConceptInfo -->
-        <span *ngIf="resultNodes.length>0 && textInfo.innerHTML.length > 15" class="small"> <a (click)="cleanConceptInfo()"
-            style="color: #007bff; font-weight: 400; cursor: pointer;"> <i class="material-icons">arrow_back</i> Go back
+      <cdk-virtual-scroll-viewport scrollWindow itemSize="70"> <!-- && isConceptInfo -->
+        <span *ngIf="resultNodes.length>0 && textInfo.innerHTML.length > 15" class="small"> <a
+            (click)="cleanConceptInfo()" style="color: #007bff; font-weight: 400; cursor: pointer;"> <i
+              class="material-icons">arrow_back</i> Go back
             to search results </a>
           <br>
           <br>
         </span>
-        <div id="textInfo" #textInfo> Loading... </div>
+
+        <div id="textInfo" #textInfo> Loading...
+        </div>
         <section *ngIf="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15">
           <mat-card-title> Results: {{resultNodes.length}} </mat-card-title>
           <ul>
@@ -76,8 +56,8 @@
               *ngFor="let n of resultNodes|slice:(resultsPageIndex*resultsPageSize):(resultsPageIndex*resultsPageSize+resultsPageSize); index as i">
               [<span *ngIf="isSearchCode" [innerHTML]="n['code']| truncate:100:searchText"> </span> <span
                 *ngIf="!isSearchCode" [innerHTML]="n['code']"> </span>]
-              <span *ngIf="isSearchName" [innerHTML]="n['name'] | truncate:100:searchText"> </span> <span
-                *ngIf="!isSearchName" [innerHTML]="n['name']"> </span>
+              <span *ngIf="isSearchName" [innerHTML]="n['name'] | truncate:100:searchText">
+              </span> <span *ngIf="!isSearchName" [innerHTML]="n['name']"> </span>
               <a class="margin link" (click)="browseToConcept(n['code'])">View</a>
               <br>
               <span *ngIf="isSearchDes" class="small" [innerHTML]="n['description'] | truncate: 100:searchText"></span>
@@ -94,29 +74,9 @@
       </cdk-virtual-scroll-viewport>
     </mat-grid-tile>
 
-    <!--   <mat-grid-tile *ngIf="resultNodes && resultNodes.length==0" class="block">
-    <div id="textInfo" #textInfo></div>
-  </mat-grid-tile>
-  <mat-grid-tile *ngIf="resultNodes && resultNodes.length>0" class="block">
-    <section>
-      <mat-card-title class="margin"> Results: {{resultNodes.length}} </mat-card-title>
-
-      <ul>
-        <li
-          *ngFor="let n of resultNodes|slice:(resultsPageIndex*resultsPageSize):(resultsPageIndex*resultsPageSize+resultsPageSize); index as i">
-           [{{n['code']}}] {{n['name']}}
-        </li>
-      </ul>
-
-      <mat-paginator (page)="handlePageEvent($event)" [length]="resultNodes.length" [pageSize]="resultsPageSize"
-        [pageIndex]="resultsPageIndex" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
-      </mat-paginator>
-    </section>
-  </mat-grid-tile> -->
-
   </mat-grid-list>
 </section>
 <!-- <mat-toolbar class="mat-primary">
   <span>Body of Knowledge Visualizer and Search</span>
-  <span class="example-spacer"></span>
+  <span class="spacer"></span>
 </mat-toolbar> -->

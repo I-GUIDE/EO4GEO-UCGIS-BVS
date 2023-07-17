@@ -7,7 +7,7 @@
 }
 
 .form-field {
-    width: 200px;
+    width: 400px;
 }
 
 mat-paginator {
@@ -33,4 +33,16 @@ mat-paginator {
     height: 200px;
     width: 200px;
     border: 1px solid black;
+}
+
+.white-bg {
+    background: #fafafa;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+mat-toolbar span {
+    font-size: larger;
 }

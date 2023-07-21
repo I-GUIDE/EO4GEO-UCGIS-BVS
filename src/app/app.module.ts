@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { MaterialAllModule } from '../material.module'; 
+import { MaterialAllModule } from '../material.module';
 import { TruncatePipe } from './truncate.pipe';
 
 import { RouterModule } from '@angular/router';
@@ -24,7 +24,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     RouterModule.forRoot([
       { path: ':conceptId', component: BokComponent },
       { path: '', component: BokComponent },
-    ]),
+    ], { anchorScrolling: 'enabled' }),
     BrowserAnimationsModule,
     FormsModule,
     MaterialAllModule,

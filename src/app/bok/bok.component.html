@@ -23,12 +23,10 @@
     (change)="onChangeSearchText()">Name</mat-checkbox>
   <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchDes"
     (change)="onChangeSearchText()">Description</mat-checkbox>
-  <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSkills" (change)="onChangeSearchText()">Skills /
-    Learning outcomes</mat-checkbox>
-  <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSourceDocs" (change)="onChangeSearchText()">Source
-    Documents</mat-checkbox>
-
-
+  <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSkills" (change)="onChangeSearchText()">Learning
+    Objectives</mat-checkbox>
+  <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSourceDocs"
+    (change)="onChangeSearchText()">References</mat-checkbox>
 
 </section>
 <section style=" padding: 10px;">
@@ -38,7 +36,7 @@
     </mat-grid-tile>
 
     <mat-grid-tile class="block section">
-      <cdk-virtual-scroll-viewport scrollWindow itemSize="70"> <!-- && isConceptInfo -->
+      <cdk-virtual-scroll-viewport scrollWindow itemSize="70" style="padding-right: 15px"> <!-- && isConceptInfo -->
         <span *ngIf="resultNodes.length>0 && textInfo.innerHTML.length > 15" class="small"> <a
             (click)="cleanConceptInfo()" style="color: #007bff; font-weight: 400; cursor: pointer;"> <i
               class="material-icons">arrow_back</i> Go back
@@ -49,8 +47,10 @@
 
         <div id="textInfo" #textInfo> Loading...
         </div>
+
         <section *ngIf="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15">
-          <mat-card-title> Results: {{resultNodes.length}} </mat-card-title>
+          <mat-card-title> Results: {{resultNodes.length}} </mat-card-title> <span style="float: right;"><a (click)="cleanSearch()" style="color: #007bff; font-weight: 400; cursor: pointer;"> <i
+              class="material-icons">close</i> Clear search results </a></span>
           <ul>
             <li
               *ngFor="let n of resultNodes|slice:(resultsPageIndex*resultsPageSize):(resultsPageIndex*resultsPageSize+resultsPageSize); index as i">
@@ -71,11 +71,115 @@
             [pageIndex]="resultsPageIndex" [pageSizeOptions]="[5, 10, 25, 50, 100]" aria-label="Select page">
           </mat-paginator>
         </section>
+
+        <mat-expansion-panel
+          [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Topic Description
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div id="bokdescription"
+            [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+            No content available </div>
+        </mat-expansion-panel>
+
+        <div id="bokrelations"
+          [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+          No content available </div>
+
+        <!--         <mat-expansion-panel expanded
+          [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Relations <span id="bokrelationsnum"></span>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div id="bokrelations"
+            [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+            No content available </div>
+        </mat-expansion-panel> -->
+
+        <mat-expansion-panel
+          [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Learning Objectives <span id="bokskillsnum"></span>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div id="bokskills"
+            [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+            No content available </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              References <span id="bokreferencesnum"></span>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div id="bokreferences"
+            [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+            No content available </div>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel
+          [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Author and Citation Info
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div id="bokintroduction"
+            [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+            No content available </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Versioning <span id="bokversioningnum"></span>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div id="bokversioning"
+            [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+            No content available </div>
+        </mat-expansion-panel>
+
       </cdk-virtual-scroll-viewport>
     </mat-grid-tile>
 
   </mat-grid-list>
 </section>
+<!-- <section style=" padding: 10px;" >
+
+  <mat-expansion-panel expanded [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+       Full content
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header> 
+   <div id="bokdescription" [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'"> No content available </div>
+  </mat-expansion-panel>
+
+</section> -->
 <!-- <mat-toolbar class="mat-primary">
   <span>Body of Knowledge Visualizer and Search</span>
   <span class="spacer"></span>

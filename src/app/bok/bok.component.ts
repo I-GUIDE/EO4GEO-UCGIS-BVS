@@ -1,9 +1,10 @@
 import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import * as bok from '@ucgis/find-in-bok-dataviz';
 import { MatAccordion } from '@angular/material/expansion';
 import { ViewportScroller } from '@angular/common';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-bok',
@@ -26,12 +27,12 @@ export class BokComponent implements AfterViewInit {
 
   @ViewChild(MatAccordion) accordion: MatAccordion | undefined;
 
-  constructor(private route: ActivatedRoute, private scroller: ViewportScroller) { }
+  constructor(private route: ActivatedRoute, private router: Router, private scroller: ViewportScroller) { }
 
   async ngAfterViewInit(): Promise<void> {
 
-    const result = await bok.visualizeBOKData('https://ucgis-bok-dev-default-rtdb.firebaseio.com/', 'current');
-    // const result = await bok.visualizeBOKData('https://ucgis-bok-default-rtdb.firebaseio.com/', 'current');
+    //  const result = await bok.visualizeBOKData('https://ucgis-bok-dev-default-rtdb.firebaseio.com/', 'current');
+    const result = await bok.visualizeBOKData('https://ucgis-bok-default-rtdb.firebaseio.com/', 'current');
     // bok.visualizeBOKData('https://ucgis-bok-backup-default-rtdb.firebaseio.com/')
     //  bok.visualizeBOKData('https://ucgis-bok-backup-default-rtdb.firebaseio.com/', '#graph', '#textInfo')
     // bok.visualizeBOKData('#graph', 'https://ucgis-bok-default-rtdb.firebaseio.com/', '#textInfo')
@@ -39,7 +40,14 @@ export class BokComponent implements AfterViewInit {
     let id = this.route.snapshot.paramMap.get('conceptId');
     bok.browseToConcept(id);
 
+    this.router.events.subscribe(() => {
+      let id = this.route.snapshot.paramMap.get('conceptId');
+      bok.browseToConcept(id);
+    });
+
   }
+
+
 
   onChangeSearchText() {
     this.resultNodes = bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchDes, this.isSearchSkills, this.isSearchSourceDocs);

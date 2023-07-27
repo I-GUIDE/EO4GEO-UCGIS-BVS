@@ -59,3 +59,12 @@ h2 {
     font-size: 14px !important;
     font-weight: 500 !important;
 }
+
+.section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+    height: 0;
+}

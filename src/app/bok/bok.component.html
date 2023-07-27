@@ -1,16 +1,17 @@
 <mat-toolbar class="white-bg">
-  <span>Body of Knowledge Visualization and Search tool</span>
+  <span>Geographic Information Systems & Technology <br> Body of Knowledge Visualization and Search tool <h5>The domain
+      of geographic information science and its associated technologies (GIS&T)</h5>
+  </span>
   <span class="spacer"></span>
-  <img src="assets/ucgis-logo-small-trans.png" alt="ucgis logo" class="text-right" style="height: 40px;">
+  <img src="assets/BoKLogo.png" alt="ucgis logo" class="text-right" style="height: 50px;">
 </mat-toolbar>
-<br>
 <section class="section">
 
   <!--  <mat-card-title class="margin">Check the attributes to match with term searched: </mat-card-title> -->
 
 
   <mat-form-field class="form-field margin">
-    <mat-label>Write search term</mat-label>
+    <mat-label>Enter search term</mat-label>
     <input matInput type="text" [(ngModel)]="searchText" (keyup)="onChangeSearchText()">
     <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="cleanSearch()">
       <mat-icon>close</mat-icon>
@@ -49,8 +50,9 @@
         </div>
 
         <section *ngIf="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15">
-          <mat-card-title> Results: {{resultNodes.length}} </mat-card-title> <span style="float: right;"><a (click)="cleanSearch()" style="color: #007bff; font-weight: 400; cursor: pointer;"> <i
-              class="material-icons">close</i> Clear search results </a></span>
+          <mat-card-title> Results: {{resultNodes.length}} </mat-card-title> <span style="float: right;"><a
+              (click)="cleanSearch()" style="color: #007bff; font-weight: 400; cursor: pointer;"> <i
+                class="material-icons">close</i> Clear search results </a></span>
           <ul>
             <li
               *ngFor="let n of resultNodes|slice:(resultsPageIndex*resultsPageSize):(resultsPageIndex*resultsPageSize+resultsPageSize); index as i">
@@ -76,7 +78,7 @@
           [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Topic Description
+              Full Topic Description
             </mat-panel-title>
             <mat-panel-description>
             </mat-panel-description>
@@ -100,6 +102,20 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div id="bokrelations"
+            [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+            No content available </div>
+        </mat-expansion-panel> -->
+
+<!--         <mat-expansion-panel
+          [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Topic Description
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div id="bokdescription"
             [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
             No content available </div>
         </mat-expansion-panel> -->
@@ -132,8 +148,7 @@
             No content available </div>
         </mat-expansion-panel>
 
-
-        <mat-expansion-panel
+        <mat-expansion-panel expanded
           [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
           <mat-expansion-panel-header>
             <mat-panel-title>

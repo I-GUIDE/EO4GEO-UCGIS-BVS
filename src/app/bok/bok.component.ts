@@ -47,8 +47,6 @@ export class BokComponent implements AfterViewInit {
 
   }
 
-
-
   onChangeSearchText() {
     this.resultNodes = bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchDes, this.isSearchSkills, this.isSearchSourceDocs);
     this.isConceptInfo = false;

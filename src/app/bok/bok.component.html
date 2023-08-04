@@ -9,25 +9,26 @@
 
   <!--  <mat-card-title class="margin">Check the attributes to match with term searched: </mat-card-title> -->
 
-
   <mat-form-field class="form-field margin">
     <mat-label>Enter search term</mat-label>
-    <input matInput type="text" [(ngModel)]="searchText" (keyup)="onChangeSearchText()">
+    <input matInput type="text" [(ngModel)]="searchText" (keyup)="searchInBoK()">
     <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="cleanSearch()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
   <br>
   <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchCode"
-    (change)="onChangeSearchText()">Code</mat-checkbox>
+    (change)="searchInBoK()">Code</mat-checkbox>
   <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchName"
-    (change)="onChangeSearchText()">Name</mat-checkbox>
+    (change)="searchInBoK()">Name</mat-checkbox>
+  <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchKey"
+    (change)="searchInBoK()">Keywords</mat-checkbox>
   <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchDes"
-    (change)="onChangeSearchText()">Description</mat-checkbox>
-  <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSkills" (change)="onChangeSearchText()">Learning
+    (change)="searchInBoK()">Description</mat-checkbox>
+  <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSkills" (change)="searchInBoK()">Learning
     Objectives</mat-checkbox>
   <mat-checkbox color="primary" class="margin" [(ngModel)]="isSearchSourceDocs"
-    (change)="onChangeSearchText()">References</mat-checkbox>
+    (change)="searchInBoK()">References</mat-checkbox>
 
 </section>
 <section style=" padding: 10px;">
@@ -47,6 +48,26 @@
         </span>
 
         <div id="textInfo" #textInfo> Loading...
+        </div>
+
+        <div id="keywordsInfo" #keywordsInfo [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+          <span id="keywordsInfoTitle"> </span>
+          <a id="keywordsInfo0" #keywordsInfo0 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo0.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo1" #keywordsInfo1 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo1.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo2" #keywordsInfo2 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo2.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo3" #keywordsInfo3 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo3.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo4" #keywordsInfo4 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo4.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo5" #keywordsInfo5 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo5.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo6" #keywordsInfo6 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo6.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo7" #keywordsInfo7 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo7.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo8" #keywordsInfo8 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo8.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo9" #keywordsInfo9 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo9.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo10" #keywordsInfo10 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo10.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo11" #keywordsInfo11 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo11.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo12" #keywordsInfo12 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo12.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo13" #keywordsInfo13 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo13.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo14" #keywordsInfo14 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo14.innerText, false, false, true, false, false, false)"> </a>
+          <a id="keywordsInfo15" #keywordsInfo15 style="color:#007bff; font-weight:400; cursor:pointer;" (click)="searchInBoK(keywordsInfo15.innerText, false, false, true, false, false, false)"> </a>
         </div>
 
         <section *ngIf="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15">

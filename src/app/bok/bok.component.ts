@@ -17,6 +17,7 @@ export class BokComponent implements AfterViewInit {
   resultNodes = [];
   isSearchCode = false;
   isSearchName = true;
+  isSearchKey = false;
   isSearchDes = false;
   isSearchSkills = false;
   isSearchSourceDocs = false;
@@ -31,8 +32,8 @@ export class BokComponent implements AfterViewInit {
 
   async ngAfterViewInit(): Promise<void> {
 
-   //   const result = await bok.visualizeBOKData('https://ucgis-bok-dev-default-rtdb.firebaseio.com/', 'current');
-     const result = await bok.visualizeBOKData('https://ucgis-bok-default-rtdb.firebaseio.com/', 'current');
+    //  const result = await bok.visualizeBOKData('https://ucgis-bok-dev-default-rtdb.firebaseio.com/', 'current');
+    const result = await bok.visualizeBOKData('https://ucgis-bok-default-rtdb.firebaseio.com/', 'current');
     // bok.visualizeBOKData('https://ucgis-bok-backup-default-rtdb.firebaseio.com/')
     //  bok.visualizeBOKData('https://ucgis-bok-backup-default-rtdb.firebaseio.com/', '#graph', '#textInfo')
     // bok.visualizeBOKData('#graph', 'https://ucgis-bok-default-rtdb.firebaseio.com/', '#textInfo')
@@ -47,8 +48,15 @@ export class BokComponent implements AfterViewInit {
 
   }
 
-  onChangeSearchText() {
-    this.resultNodes = bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchDes, this.isSearchSkills, this.isSearchSourceDocs);
+  searchInBoK(sText = '', isSCode = false, isSName = false, isSKey = false, isSDes = false, isSSkills = false, isSSourceDocs = false) {
+    sText ? this.searchText = sText : null;
+    isSCode ? this.isSearchCode = isSCode : null;
+    isSName ? this.isSearchName = isSName : null;
+    isSKey ? this.isSearchKey = isSKey : null;
+    isSDes ? this.isSearchDes = isSDes : null;
+    isSSkills ? this.isSearchSkills = isSSkills : null;
+    isSSourceDocs ? this.isSearchSourceDocs = isSSourceDocs : null;
+    this.resultNodes = bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchKey, this.isSearchDes, this.isSearchSkills, this.isSearchSourceDocs);
     this.isConceptInfo = false;
     this.getCurrSelCode();
   }
@@ -61,7 +69,7 @@ export class BokComponent implements AfterViewInit {
   cleanSearch() {
     this.resultNodes = [];
     this.searchText = '';
-    bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchDes, this.isSearchSkills, this.isSearchSourceDocs);
+    bok.searchInBoK(this.searchText, this.isSearchCode, this.isSearchName, this.isSearchKey, this.isSearchDes, this.isSearchSkills, this.isSearchSourceDocs);
   }
 
   browseToConcept(node: string) {

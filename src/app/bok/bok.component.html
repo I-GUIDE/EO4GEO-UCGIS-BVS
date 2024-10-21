@@ -96,7 +96,7 @@
         </section>
 
         <mat-expansion-panel
-          [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
+          expanded [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
           <mat-expansion-panel-header>
             <mat-panel-title>
               Full Topic Description
@@ -169,7 +169,7 @@
             No content available </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel expanded
+        <mat-expansion-panel
           [style.visibility]="resultNodes && resultNodes.length>0 && !isConceptInfo && textInfo.innerHTML.length < 15? 'hidden': 'visible'">
           <mat-expansion-panel-header>
             <mat-panel-title>

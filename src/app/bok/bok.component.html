@@ -32,12 +32,12 @@
 
 </section>
 <section style=" padding: 10px;">
-  <mat-grid-list cols="2"> <!--  rowHeight="fit" -->
-    <mat-grid-tile class="block">
+  <mat-grid-list cols="12"> <!--  rowHeight="fit" -->
+    <mat-grid-tile colspan="4" class="block">
       <div id="graph"></div>
     </mat-grid-tile>
 
-    <mat-grid-tile class="block section">
+    <mat-grid-tile colspan="8" class="block section">
       <cdk-virtual-scroll-viewport scrollWindow itemSize="70" style="padding-right: 15px"> <!-- && isConceptInfo -->
         <span *ngIf="resultNodes.length>0 && textInfo.innerHTML.length > 15" class="small"> <a
             (click)="cleanConceptInfo()" style="color: #007bff; font-weight: 400; cursor: pointer;"> <i

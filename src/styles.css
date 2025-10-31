@@ -31,9 +31,10 @@ i.material-icons {
 
 /* Full content */
 
-p:has(img) {
+/* Commented out this section due to the issue with paragraph's alignment with img */
+/* p:has(img) {
     text-align: center;
-}
+} */
 
 .mat-expansion-panel {
     box-shadow: none !important;
